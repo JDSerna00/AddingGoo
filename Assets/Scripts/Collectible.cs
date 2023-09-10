@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    Vector3 position;
     int powerQuantity;
-
-    public void PickUp()
+    public void PickUp(Player player)
     {
-
+        player.PowerUp(powerQuantity);
     }
     // Start is called before the first frame update
     void Start()

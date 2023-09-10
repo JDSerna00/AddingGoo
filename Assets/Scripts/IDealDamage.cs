@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IDealDamage
 {
-    void DealDamage();
-    void TakeDamage();
+    public void DealDamage(IDealDamage target);
+    public void TakeDamage(int damage);
     
 }

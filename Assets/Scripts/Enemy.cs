@@ -3,25 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : IDealDamage
+public class Enemy : Character, IDealDamage
 {
     Vector3 position;
-    int lives;
-    int power;
-
-    public void Destroyed()
+    private new int lives = 1;
+    public Enemy(Vector3 position, int power)
     {
-
+        this.position = position;
+        this.power = power;
     }
 
-    void IDealDamage.DealDamage()
+    public void DealDamage(IDealDamage target)
     {
-        throw new NotImplementedException();
-    }
-
-    void IDealDamage.TakeDamage()
-    {
-        throw new NotImplementedException();
+        if (target is Enemy)
+        {           
+            (target as Enemy).TakeDamage(1);           
+            power += (target as Enemy).power;
+        }
     }
     // Start is called before the first frame update
     void Start()
