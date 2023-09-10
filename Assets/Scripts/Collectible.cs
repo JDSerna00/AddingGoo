@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
+    Vector3 position;
+    int powerQuantity;
+
+    public void PickUp()
+    {
+
+    }
     // Start is called before the first frame update
     void Start()
     {
