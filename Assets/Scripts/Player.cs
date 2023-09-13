@@ -50,6 +50,15 @@ public class Player : Character, IDealDamage
         }
     }
 
+    public void RestartPlayer()
+    {
+        lives = 3;
+        power = 0;
+    }
+    public override void Destroyed()
+    {
+        Destroy(this);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -62,4 +71,5 @@ public class Player : Character, IDealDamage
     {
         
     }
+
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour 
 {
-    Vector3 position;
+    LevelManager levelManager;
     public int lives;
     public int power;
 
@@ -18,8 +18,5 @@ public abstract class Character : MonoBehaviour
             Destroyed();
         }
     }
-    public void Destroyed()
-    {
-
-    }
+    public abstract void Destroyed();
 }
