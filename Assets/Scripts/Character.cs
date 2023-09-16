@@ -18,5 +18,17 @@ public abstract class Character : MonoBehaviour
             Destroyed();
         }
     }
+    public int GetPower()
+    {
+        return power;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character otherCharacter = collision.gameObject.GetComponent<Character>();
+        if (otherCharacter != null)
+        {
+            GameManager.Instance.HandleCollision(this, otherCharacter);
+        }
+    }
     public abstract void Destroyed();
 }

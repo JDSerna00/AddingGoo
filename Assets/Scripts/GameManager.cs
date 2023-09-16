@@ -45,9 +45,31 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameOver");
     }
+
+    public void HandleCollision(Character character, Character otherCharacter)
+    {
+        if (character is IDealDamage && otherCharacter is IDealDamage)
+        {
+            IDealDamage attacker = character as IDealDamage;
+            IDealDamage target = otherCharacter as IDealDamage;
+
+            int attackerPower = attacker.GetPower();
+            int targetPower = target.GetPower();
+
+            if (attackerPower > targetPower)
+            {
+                // El personaje con más poder ataca
+                attacker.DealDamage(target);
+            }
+            else
+            {
+                // El personaje con menos poder recibe daño
+                target.DealDamage(attacker);
+            }
+        }
+    }
     public void PauseGame()
     {
-
         IsGamePaused = true;
     }
 
