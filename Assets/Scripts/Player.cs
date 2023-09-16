@@ -8,7 +8,11 @@ public class Player : Character, IDealDamage
     float invincibleTime;
     float invincibleAmount = 2.0f;
     private bool isInvicible;
-    private new int lives = 3;
+
+    public Player(int power) : base(3)
+    {
+        this.power = power;
+    }
 
     public void Movement()
     {

@@ -9,6 +9,10 @@ public abstract class Character : MonoBehaviour
     public int lives;
     public int power;
 
+    public Character(int initialLives)
+    {
+        lives = initialLives;
+    }
     public void TakeDamage(int damage)
     {
         lives -= damage;
