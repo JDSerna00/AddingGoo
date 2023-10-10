@@ -5,7 +5,6 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour 
 {
-    LevelManager levelManager;
     public int lives;
     public int power;
 
@@ -32,6 +31,7 @@ public abstract class Character : MonoBehaviour
         if (otherCharacter != null)
         {
             GameManager.Instance.HandleCollision(this, otherCharacter);
+            Debug.Log("Took damage, and has: " + otherCharacter.lives + " lives");
         }
     }
     public abstract void Destroyed();

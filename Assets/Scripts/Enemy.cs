@@ -31,6 +31,7 @@ public class Enemy : Character, IDealDamage
     // Start is called before the first frame update
     void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
         levelManager.AddActiveEnemy(this);
     }
 

@@ -76,8 +76,15 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
+
+        // Llamar al LevelStart una vez
+        if (levelManager != null)
+        {
+            levelManager.LevelStart();
+            Debug.Log("8");
+        }
         goo.RestartPlayer();
-        levelManager.LevelStart();
         IsGamePaused = false;
     }
 
