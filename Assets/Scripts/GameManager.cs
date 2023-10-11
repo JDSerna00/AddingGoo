@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Player goo;
     private LevelManager levelManager;
     bool IsGamePaused;
 
@@ -77,6 +76,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         levelManager = FindObjectOfType<LevelManager>();
+        Player goo = Player.Instance;
 
         // Llamar al LevelStart una vez
         if (levelManager != null)
@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour
             Debug.Log("8");
         }
         goo.RestartPlayer();
+        Debug.Log("Goo has: " + goo.lives);
         IsGamePaused = false;
     }
 

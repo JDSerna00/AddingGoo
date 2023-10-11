@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5739590584995615144}
   - component: {fileID: 4495917118422993551}
   - component: {fileID: 620041665302679158}
+  - component: {fileID: 890077071911554321}
   m_Layer: 0
   m_Name: Carrasco
   m_TagString: Untagged
@@ -99,3 +100,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 0
   power: 0
+--- !u!50 &890077071911554321
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735881076237533168}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

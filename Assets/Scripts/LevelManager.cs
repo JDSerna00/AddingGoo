@@ -8,6 +8,26 @@ public class LevelManager : MonoBehaviour
     int actualLevel = 0;
     public List<Enemy> activeEnemies = new List<Enemy>();
 
+    private static LevelManager instance; 
+
+    public static LevelManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<LevelManager>();
+
+                if (instance == null)
+                {
+                    GameObject go = new GameObject("LevelManager");
+                    instance = go.AddComponent<LevelManager>();
+                }
+            }
+
+            return instance;
+        }
+    }
     public void LevelStart()
     {
         LoadLevel(actualLevel);
@@ -34,8 +54,11 @@ public class LevelManager : MonoBehaviour
     }
     public void AddActiveEnemy(Enemy enemy)
     {
-        activeEnemies.Add(enemy);
-        Debug.Log("5");
+        if (!activeEnemies.Contains(enemy))
+        {
+            activeEnemies.Add(enemy);
+            Debug.Log("5");
+        }
     }
 
     public void RemoveActiveEnemy(Enemy enemy)
@@ -50,11 +73,25 @@ public class LevelManager : MonoBehaviour
         }
         Debug.Log("6");
     }
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
+        // Asegura que esta instancia sea la única en la escena
+        if (instance != null && instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(this.gameObject);
+
         LoadLevel(actualLevel);
         Debug.Log("7");
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
