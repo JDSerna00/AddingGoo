@@ -796,10 +796,10 @@ RectTransform:
   - {fileID: 945192069}
   m_Father: {fileID: 742613737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 310.6627, y: 185.88382}
-  m_SizeDelta: {x: 125.6141, y: 19.0651}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -36.700012, y: -9.029999}
+  m_SizeDelta: {x: 125.614105, y: 19.065094}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1118893422
 MonoBehaviour:
@@ -1096,7 +1096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361df81840bee9542a6a3dda98eec486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goo: {fileID: 576145189}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
