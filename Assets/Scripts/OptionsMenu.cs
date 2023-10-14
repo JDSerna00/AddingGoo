@@ -11,11 +11,27 @@ public class OptionsMenu : MonoBehaviour
     public float SliderValue;
     public Image MuteImage;
 
+    public Toggle toggle;
+
     private void Start()
     {
         slider.value = PlayerPrefs.GetFloat("VolumeAudio", 0.5f);
         AudioListener.volume=slider.value;
         CheckIfMuted();
+
+        if (Screen.fullScreen)
+        {
+
+            toggle.isOn = true;
+
+        }
+
+        else 
+        {
+        
+        toggle.isOn=false;
+        
+        }
     }
 
     public void ChangeSlider (float value)
@@ -45,6 +61,13 @@ public class OptionsMenu : MonoBehaviour
     {
 
         SceneManager.LoadScene("MainMenu");
+
+    }
+
+    public void FullScreenMode(bool FullScreen)
+    {
+
+        Screen.fullScreen=FullScreen;
 
     }
 }
