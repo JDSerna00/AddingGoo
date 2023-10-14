@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     {
 
         SceneManager.LoadScene("GameScene");
+    
 
     }
 
@@ -18,4 +19,5 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
 
     }
+
 }
