@@ -45,6 +45,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(int level)
     {
         SceneManager.LoadScene(level);
+        activeEnemies.Clear();
         Debug.Log("3");
     }
     public void RestartLevel()
@@ -59,6 +60,10 @@ public class LevelManager : MonoBehaviour
             activeEnemies.Add(enemy);
             Debug.Log("5");
         }
+        else
+        {
+            Debug.Log("Enemy already in activeEnemies. Count: " + activeEnemies.Count);
+        }
     }
 
     public void RemoveActiveEnemy(Enemy enemy)
@@ -72,6 +77,7 @@ public class LevelManager : MonoBehaviour
             NextLevel();
         }
         Debug.Log("6");
+        activeEnemies.RemoveAll(item => item == null);
     }
     private void Awake()
     {

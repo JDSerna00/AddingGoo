@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour
                 // El personaje con menos poder recibe daño
                 target.DealDamage(attacker);
             }
+
+            Debug.Log("Collision detected between: " + character + " and" + otherCharacter);
+
         }
     }
     public void PauseGame()
@@ -75,7 +78,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        levelManager = FindObjectOfType<LevelManager>();
+        levelManager = LevelManager.Instance;
         Player goo = Player.Instance;
 
         // Llamar al LevelStart una vez
@@ -85,7 +88,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("8");
         }
         goo.RestartPlayer();
-        Debug.Log("Goo has: " + goo.lives);
+        Debug.Log("Goo has: " + goo.lives + " lives");
+        Debug.Log("Goo has: " + goo.power+ " power");
         IsGamePaused = false;
     }
 
