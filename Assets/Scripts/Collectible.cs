@@ -4,8 +4,18 @@ using UnityEngine;
 
 public class Collectible : MonoBehaviour
 {
-    int powerQuantity;
-    public void PickUp(Player player)
+    public int powerQuantity;
+    private void OnTriggerEnter2D(Collider2D other)
+    {       
+
+        if (other.CompareTag("Goo"))
+        {
+            Collect(other.GetComponent<Player>());
+            Destroy(gameObject);
+            Debug.Log("Object that entered the trigger : " + other);
+        }
+    }
+    public void Collect(Player player)
     {
         player.PowerUp(powerQuantity);
     }
