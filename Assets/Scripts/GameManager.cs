@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public Player goo;
     private LevelManager levelManager;
     bool IsGamePaused;
 
@@ -45,17 +44,48 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("GameOver");
     }
+
+    public void HandleCollision(Character character, Character otherCharacter)
+    {
+        if (character is IDealDamage && otherCharacter is IDealDamage)
+        {
+            IDealDamage attacker = character as IDealDamage;
+            IDealDamage target = otherCharacter as IDealDamage;
+
+            int attackerPower = attacker.GetPower();
+            int targetPower = target.GetPower();
+
+            if (attackerPower > targetPower)
+            {
+                // El personaje con más poder ataca
+                attacker.DealDamage(target);
+            }
+            else
+            {
+                // El personaje con menos poder recibe daño
+                target.DealDamage(attacker);
+            }
+        }
+    }
     public void PauseGame()
     {
-
         IsGamePaused = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
+        Player goo = Player.Instance;
+
+        // Llamar al LevelStart una vez
+        if (levelManager != null)
+        {
+            levelManager.LevelStart();
+            Debug.Log("8");
+        }
         goo.RestartPlayer();
-        levelManager.LevelStart();
+        Debug.Log("Goo has: " + goo.lives);
         IsGamePaused = false;
     }
 

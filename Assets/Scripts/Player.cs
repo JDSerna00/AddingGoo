@@ -8,11 +8,27 @@ public class Player : Character, IDealDamage
     float invincibleTime;
     float invincibleAmount = 2.0f;
     private bool isInvicible;
-    private new int lives = 3;
 
-    public void Movement()
+    public static Player Instance { get; private set; }
+
+    private void Awake()
     {
+        // Asegurarse de que solo haya una instancia del jugador.
+        if (Instance == null)
+        {
+            Instance = this;
+            // Realizar la inicialización del jugador...
+        }
+        else
+        {
+            // Si ya hay una instancia, destruir esta.
+            Destroy(gameObject);
+        }
+    }
 
+    public Player(int power) : base(3)
+    {
+        this.power = power;
     }
 
     public void PowerUp(int powerQuantity)
