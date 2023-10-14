@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
@@ -36,6 +38,13 @@ public class OptionsMenu : MonoBehaviour
         {
             MuteImage.enabled =false;
         }
+
+    }
+
+    public void Return()
+    {
+
+        SceneManager.LoadScene("MainMenu");
 
     }
 }
