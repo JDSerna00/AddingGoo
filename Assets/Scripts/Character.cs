@@ -25,13 +25,14 @@ public abstract class Character : MonoBehaviour
     {
         return power;
     }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character otherCharacter = collision.gameObject.GetComponent<Character>();
         if (otherCharacter != null)
         {
             GameManager.Instance.HandleCollision(this, otherCharacter);
-            Debug.Log("Took damage, and has: " + otherCharacter.lives + " lives");
+            Debug.Log(otherCharacter + "Took damage, and has: " + otherCharacter.lives + " lives");
         }
     }
     public abstract void Destroyed();
