@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : Character, IDealDamage
 {
@@ -9,6 +10,7 @@ public class Player : Character, IDealDamage
     float invincibleAmount = 2.0f;
     private bool isInvicible;
 
+    private GameManager gameManager;
     public static Player Instance { get; private set; }
 
     private void Awake()
@@ -31,10 +33,6 @@ public class Player : Character, IDealDamage
         this.power = power;
     }
 
-    public void PowerUp(int powerQuantity)
-    {
-        power += powerQuantity;
-    }
     public void DealDamage(IDealDamage target)
     {
         if (target is Enemy)
@@ -63,7 +61,13 @@ public class Player : Character, IDealDamage
         if (lives <= 0)
         {
             Destroyed();
+            Debug.Log("player is dead");
+            SceneManager.LoadScene("GameOver");
         }
+    }
+    public void PowerUp(int powerQuantity)
+    {
+        power += powerQuantity;
     }
 
     public void RestartPlayer()
@@ -73,13 +77,13 @@ public class Player : Character, IDealDamage
     }
     public override void Destroyed()
     {
-        Destroy(this);
+        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        gameManager = GameManager.Instance;
     }
 
     // Update is called once per frame

@@ -80,8 +80,7 @@ public class LevelManager : MonoBehaviour
         activeEnemies.RemoveAll(item => item == null);
     }
     private void Awake()
-    {
-        // Asegura que esta instancia sea la única en la escena
+    {        
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
