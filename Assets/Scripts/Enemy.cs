@@ -6,6 +6,8 @@ using UnityEngine;
 public class Enemy : Character, IDealDamage
 {
     private LevelManager levelManager;
+    private GameManager gameManager;
+
     private bool isAdded = false;
     public Enemy(int power) : base(1)
     {
@@ -20,7 +22,6 @@ public class Enemy : Character, IDealDamage
             power += (target as Player).power;
         }
     }
-
     public override void Destroyed()
     {
         if (lives <= 0)
@@ -29,12 +30,17 @@ public class Enemy : Character, IDealDamage
             Destroy(gameObject);
         }
     }
+    public void PowerUp(int powerQuantity)
+    {
+        power += powerQuantity;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         lives = 1;
         levelManager = LevelManager.Instance;
+        gameManager = GameManager.Instance;
         levelManager.AddActiveEnemy(this);
         Debug.Log("enemy has: " + lives);
     }
