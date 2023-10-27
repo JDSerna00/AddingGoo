@@ -18,7 +18,7 @@ public class Enemy : Character, IDealDamage
     {
         if (target is Player)
         {           
-            (target as Player).TakeDamage(1);           
+            (target as Player).TakeDamage();           
             power += (target as Player).power;
         }
     }
@@ -34,6 +34,7 @@ public class Enemy : Character, IDealDamage
     {
         power += powerQuantity;
     }
+
 
     // Start is called before the first frame update
     void Start()

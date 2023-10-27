@@ -12,9 +12,9 @@ public abstract class Character : MonoBehaviour
     {
         lives = initialLives;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage()
     {
-        lives -= damage;
+        lives--;
 
         if (lives <= 0)
         {
@@ -29,6 +29,7 @@ public abstract class Character : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Character otherCharacter = collision.gameObject.GetComponent<Character>();
+
         if (otherCharacter != null)
         {
             GameManager.Instance.HandleCollision(this, otherCharacter);

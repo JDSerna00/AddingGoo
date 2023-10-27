@@ -9,33 +9,20 @@ public class GameManager : MonoBehaviour
     bool IsGamePaused;
 
     //Singleton del gameManager
-    private static GameManager instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<GameManager>();
-                if (instance == null)
-                {
-                    GameObject go = new GameObject("GameManager");
-                    instance = go.AddComponent<GameManager>();
-                }
-            }
-            return instance;
-        }
-    }
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (instance == null)
+        // Asegurarse de que solo haya una instancia
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
+            // Realizar la inicialización 
         }
         else
         {
+            // Si ya hay una instancia, destruir esta.
             Destroy(gameObject);
         }
     }

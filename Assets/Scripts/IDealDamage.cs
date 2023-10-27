@@ -6,7 +6,7 @@ public interface IDealDamage
 {
     int GetPower();
     public void DealDamage(IDealDamage target);
-    public void TakeDamage(int damage);
+    public void TakeDamage();
     public void PowerUp(int powerQuantity);
 
 }

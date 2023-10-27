@@ -6,12 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : Character, IDealDamage
 {
-    float invincibleTime;
-    float invincibleAmount = 2.0f;
-    private bool isInvicible;
-
-    private GameManager gameManager;
     public static Player Instance { get; private set; }
+    private GameManager gameManager;
 
     private void Awake()
     {
@@ -37,25 +33,16 @@ public class Player : Character, IDealDamage
     {
         if (target is Enemy)
         {            
-            (target as Enemy).TakeDamage(1);
+            (target as Enemy).TakeDamage();
             power += (target as Enemy).power;
         }
     }
 
-    public new void TakeDamage(int damage)
-    {
-        if (damage < 0)
-        {
-            if (isInvicible)
-                return;
-
-            isInvicible = true;
-            invincibleTime = invincibleAmount;
-        }
-
+    public new void TakeDamage()
+    {       
         if (lives > 0)
         {
-            lives -= damage; 
+            lives --;
         }
 
         if (lives <= 0)
@@ -72,7 +59,7 @@ public class Player : Character, IDealDamage
 
     public void RestartPlayer()
     {
-        lives = 3;
+        lives = 1;
         power = 0;
     }
     public override void Destroyed()
@@ -84,6 +71,7 @@ public class Player : Character, IDealDamage
     void Start()
     {
         gameManager = GameManager.Instance;
+        lives = 1;
     }
 
     // Update is called once per frame
