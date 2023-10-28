@@ -46,17 +46,14 @@ public class GameManager : MonoBehaviour
             {
                 // El personaje con más poder ataca
                 attacker.DealDamage(target);
-                attacker.PowerUp(targetPower);
             }
             else
             {
                 // El personaje con menos poder recibe daño
                 target.DealDamage(attacker);
-                target.PowerUp(attackerPower);
             }
 
-            Debug.Log("Collision detected between: " + character + " and" + otherCharacter);            
-
+            Debug.Log("Collision detected between: " + character + " and " + otherCharacter);
         }
     }
     public void PauseGame()
