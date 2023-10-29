@@ -1142,6 +1142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 0
   power: 0
+  Hearts: []
 --- !u!212 &576145190
 SpriteRenderer:
   m_ObjectHideFlags: 0
