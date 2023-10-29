@@ -5,8 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    private bool collisionHandled = false;
     private LevelManager levelManager;
     bool IsGamePaused;
+    private float cooldownTimer = 0.0f;
+    private float cooldownDuration = 2.0f; // Duración del enfriamiento en segundos
+
+    // Restablece el enfriamiento
+    private void ResetCooldown()
+    {
+        cooldownTimer = 0.0f;
+    }
 
     //Singleton del gameManager
     public static GameManager Instance { get; private set; }
@@ -34,31 +43,41 @@ public class GameManager : MonoBehaviour
 
     public void HandleCollision(Character character, Character otherCharacter)
     {
-        if (character is IDealDamage && otherCharacter is IDealDamage)
+        int playerLayer = LayerMask.NameToLayer("CollisionDetection");
+        int enemyLayer = LayerMask.NameToLayer("CollisionDetection");
+
+        // Comprueba si ambos personajes están en la capa de detección de colisiones
+        if (character.gameObject.layer == playerLayer && otherCharacter.gameObject.layer == enemyLayer)
         {
-            IDealDamage attacker = character as IDealDamage;
-            IDealDamage target = otherCharacter as IDealDamage;
-
-            int attackerPower = attacker.GetPower();
-            int targetPower = target.GetPower();
-
-            if (attackerPower > targetPower)
+            if(!IsInCooldown())
             {
-                // El personaje con más poder ataca
-                attacker.DealDamage(target);
-            }
-            else
-            {
-                // El personaje con menos poder recibe daño
-                target.DealDamage(attacker);
-            }
+                IDealDamage attacker = character as IDealDamage;
+                IDealDamage target = otherCharacter as IDealDamage;
 
-            Debug.Log("Collision detected between: " + character + " and " + otherCharacter);
+                int attackerPower = attacker.GetPower();
+                int targetPower = target.GetPower();
+
+                if (attackerPower > targetPower)
+                {
+                    attacker.DealDamage(target);
+                }
+                else
+                {
+                    target.DealDamage(attacker);
+                }
+                ResetCooldown();
+                Debug.Log("Collision detected between: " + character + " and " + otherCharacter); 
+            }
         }
     }
     public void PauseGame()
     {
         IsGamePaused = true;
+    }
+
+    private bool IsInCooldown()
+    {
+        return cooldownTimer < cooldownDuration;
     }
 
     // Start is called before the first frame update
@@ -82,6 +101,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        cooldownTimer += Time.deltaTime;
     }
 }

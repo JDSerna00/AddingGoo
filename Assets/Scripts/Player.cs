@@ -24,7 +24,7 @@ public class Player : Character, IDealDamage
         }
     }
 
-    public Player(int power) : base(3)
+    public Player(int power) : base(1)
     {
         this.power = power;
     }
@@ -32,9 +32,10 @@ public class Player : Character, IDealDamage
     public void DealDamage(IDealDamage target)
     {
         if (target is Enemy)
-        {            
+        {
+            int enemyPower = (target as Enemy).GetPower();
             (target as Enemy).TakeDamage();
-            power += (target as Enemy).power;
+            power += enemyPower;
         }
     }
 
