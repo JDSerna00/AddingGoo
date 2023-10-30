@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : Character, IDealDamage
+public class Player : Character, IObserver
 {
     public static Player Instance { get; private set; }
+    private bool collisionHandled = false;
+    private float cooldownTimer = 0.0f;
+    private float cooldownDuration = 2.0f;
     private GameManager gameManager;
 
     private void Awake()
@@ -29,14 +32,52 @@ public class Player : Character, IDealDamage
         this.power = power;
     }
 
-    public void DealDamage(IDealDamage target)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (target is Enemy)
+        Character otherCharacter = collision.gameObject.GetComponent<Character>();
+
+        if (otherCharacter != null)
         {
-            int enemyPower = (target as Enemy).GetPower();
-            (target as Enemy).TakeDamage();
-            power += enemyPower;
+            foreach (var observer in gameManager.collisionObservers)
+            {
+                observer.OnCollision(this, otherCharacter);
+            }
         }
+    }
+    public void OnCollision(Character character, Character otherCharacter)
+    {
+        if (!IsInCooldown())
+        {
+            if (otherCharacter is Enemy)
+            {
+                int enemyPower = otherCharacter.GetPower();
+
+                if (enemyPower < GetPower())
+                {
+                    // Incrementa el poder del jugador en la cantidad de poder del enemigo.
+                    PowerUp(enemyPower);
+                }
+                else
+                {
+                    // El jugador recibe daño.
+                    TakeDamage();
+                }
+            }
+            ResetCooldown();
+        }
+    }
+    private bool IsInCooldown()
+    {
+        return cooldownTimer < cooldownDuration;
+    }
+
+    private void ResetCooldown()
+    {
+        cooldownTimer = cooldownDuration;
+    }
+    private void OnDestroy()
+    {
+        gameManager.UnsubscribeCollisionObserver(this); // Desuscribir al Observer cuando se destruye
     }
 
     public new void TakeDamage()
@@ -48,8 +89,7 @@ public class Player : Character, IDealDamage
 
         if (lives <= 0)
         {
-            Destroyed();
-            Debug.Log("player is dead");
+            Destroy(gameObject);
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -60,19 +100,17 @@ public class Player : Character, IDealDamage
 
     public void RestartPlayer()
     {
-        lives = 1;
+        lives = 3;
         power = 0;
-    }
-    public override void Destroyed()
-    {
-        Destroy(gameObject);
     }
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameManager.Instance;
-        lives = 1;
+        gameManager.SubscribeCollisionObserver(this);
+        lives = 3;
+        power = 0;
     }
 
     // Update is called once per frame

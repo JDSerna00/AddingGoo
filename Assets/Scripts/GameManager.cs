@@ -5,16 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool collisionHandled = false;
     private LevelManager levelManager;
-    bool IsGamePaused;
-    private float cooldownTimer = 0.0f;
-    private float cooldownDuration = 2.0f; // Duración del enfriamiento en segundos
+    public List<IObserver> collisionObservers = new List<IObserver>();
 
     // Restablece el enfriamiento
-    private void ResetCooldown()
+    public void SubscribeCollisionObserver(IObserver observer)
     {
-        cooldownTimer = 0.0f;
+        collisionObservers.Add(observer);
+    }
+
+    public void UnsubscribeCollisionObserver(IObserver observer)
+    {
+        collisionObservers.Remove(observer);
     }
 
     //Singleton del gameManager
@@ -41,44 +43,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
 
-    public void HandleCollision(Character character, Character otherCharacter)
-    {
-        int playerLayer = LayerMask.NameToLayer("CollisionDetection");
-        int enemyLayer = LayerMask.NameToLayer("CollisionDetection");
-
-        // Comprueba si ambos personajes están en la capa de detección de colisiones
-        if (character.gameObject.layer == playerLayer && otherCharacter.gameObject.layer == enemyLayer)
-        {
-            if(!IsInCooldown())
-            {
-                IDealDamage attacker = character as IDealDamage;
-                IDealDamage target = otherCharacter as IDealDamage;
-
-                int attackerPower = attacker.GetPower();
-                int targetPower = target.GetPower();
-
-                if (attackerPower > targetPower)
-                {
-                    attacker.DealDamage(target);
-                }
-                else
-                {
-                    target.DealDamage(attacker);
-                }
-                ResetCooldown();
-                Debug.Log("Collision detected between: " + character + " and " + otherCharacter); 
-            }
-        }
-    }
-    public void PauseGame()
-    {
-        IsGamePaused = true;
-    }
-
-    private bool IsInCooldown()
-    {
-        return cooldownTimer < cooldownDuration;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -95,12 +59,10 @@ public class GameManager : MonoBehaviour
         goo.RestartPlayer();
         Debug.Log("Goo has: " + goo.lives + " lives");
         Debug.Log("Goo has: " + goo.power+ " power");
-        IsGamePaused = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        cooldownTimer += Time.deltaTime;
     }
 }

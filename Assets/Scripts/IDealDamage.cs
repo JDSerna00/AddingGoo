@@ -5,7 +5,6 @@ using UnityEngine;
 public interface IDealDamage
 {
     int GetPower();
-    public void DealDamage(IDealDamage target);
     public void TakeDamage();
     public void PowerUp(int powerQuantity);
 
