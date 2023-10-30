@@ -74,6 +74,7 @@ public class Enemy : Character, IObserver
     private void OnDestroy()
     {
         gameManager.UnsubscribeCollisionObserver(this); // Desuscribir al Observer cuando se destruye
+        levelManager.RemoveActiveEnemy(this);
     }
 
 

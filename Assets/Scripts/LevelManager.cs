@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    int actualLevel = 0;
+    public int actualLevel = 0;
     public List<Enemy> activeEnemies = new List<Enemy>();
     public static LevelManager Instance { get; private set; }
 
@@ -42,7 +43,7 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        SceneManager.LoadScene(level);
+        SceneManager.LoadScene("Level" + level);
         activeEnemies.Clear();
         Debug.Log("3");
     }
@@ -74,8 +75,7 @@ public class LevelManager : MonoBehaviour
             // Si no hay enemigos activos, avanzar al siguiente nivel
             NextLevel();
         }
-        Debug.Log("6");
-        activeEnemies.RemoveAll(item => item == null);
+        Debug.Log("6");       
     }
 
     // Start is called before the first frame update
