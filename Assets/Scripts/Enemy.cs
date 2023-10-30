@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Character, IDealDamage
+public class Enemy : Character, IDealDamage, IObserver
 {
     private LevelManager levelManager;
     private GameManager gameManager;
@@ -30,10 +30,25 @@ public class Enemy : Character, IDealDamage
             Destroy(gameObject);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character otherCharacter = collision.gameObject.GetComponent<Character>();
+
+        if (otherCharacter != null)
+        {
+            foreach (var observer in gameManager.collisionObservers)
+            {
+                observer.OnCollision(this, otherCharacter);
+            }
+        }
+    }
+
     public void PowerUp(int powerQuantity)
     {
         power += powerQuantity;
     }
+
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +57,7 @@ public class Enemy : Character, IDealDamage
         levelManager = LevelManager.Instance;
         gameManager = GameManager.Instance;
         levelManager.AddActiveEnemy(this);
+        gameManager.SubscribeCollisionObserver(this);
         Debug.Log("enemy has: " + lives);
     }
 
@@ -49,5 +65,24 @@ public class Enemy : Character, IDealDamage
     void Update()
     {
         
+    }
+
+    public void OnCollision(Character character, Character otherCharacter)
+    {
+        if (otherCharacter is Player)
+        {
+            int playerPower = otherCharacter.GetPower();
+
+            if (playerPower < GetPower())
+            {
+                // Incrementa el poder del enemigo en la cantidad de poder del jugador.
+                PowerUp(playerPower);
+            }
+            else
+            {
+                // El enemigo muere.
+                TakeDamage(1);
+            }
+        }
     }
 }

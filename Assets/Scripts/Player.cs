@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Player : Character, IDealDamage
+public class Player : Character, IDealDamage, IObserver
 {
     float invincibleTime;
     float invincibleAmount = 2.0f;
@@ -84,6 +84,8 @@ public class Player : Character, IDealDamage
     void Start()
     {
         gameManager = GameManager.Instance;
+        lives = 1;
+        gameManager.SubscribeCollisionObserver(this);
     }
 
     // Update is called once per frame
@@ -92,4 +94,33 @@ public class Player : Character, IDealDamage
         
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Character otherCharacter = collision.gameObject.GetComponent<Character>();
+
+        if (otherCharacter != null)
+        {
+            foreach (var observer in gameManager.collisionObservers)
+            {
+                observer.OnCollision(this, otherCharacter);
+            }
+        }
+    }
+
+    public void OnCollision(Character character, Character otherCharacter)
+    {
+        if (otherCharacter is Enemy)
+        {
+            int enemyPower = otherCharacter.GetPower();
+
+            if (enemyPower < GetPower())
+            {
+                PowerUp(enemyPower);
+            }
+            else 
+            {
+                TakeDamage(1);
+            }
+        }
+    }
 }

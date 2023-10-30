@@ -5,37 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public List<IObserver> collisionObservers = new List<IObserver>();
     private LevelManager levelManager;
     bool IsGamePaused;
+    private float cooldownTimer = 0.0f;
+    private float cooldownDuration = 2.0f; // Duración del enfriamiento en segundos
+
+    // Restablece el enfriamiento
+    private void ResetCooldown()
+    {
+        cooldownTimer = 0.0f;
+    }
+    public void SubscribeCollisionObserver(IObserver observer)
+    {
+        collisionObservers.Add(observer);
+    }
+
+    public void UnsubscribeCollisionObserver(IObserver observer)
+    {
+        collisionObservers.Remove(observer);
+    }
 
     //Singleton del gameManager
-    private static GameManager instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<GameManager>();
-                if (instance == null)
-                {
-                    GameObject go = new GameObject("GameManager");
-                    instance = go.AddComponent<GameManager>();
-                }
-            }
-            return instance;
-        }
-    }
+    public static GameManager Instance { get; private set; }
 
     private void Awake()
     {
-        if (instance == null)
+        // Asegurarse de que solo haya una instancia
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
+            // Realizar la inicialización 
         }
         else
         {
+            // Si ya hay una instancia, destruir esta.
             Destroy(gameObject);
         }
     }
@@ -47,34 +52,30 @@ public class GameManager : MonoBehaviour
 
     public void HandleCollision(Character character, Character otherCharacter)
     {
-        if (character is IDealDamage && otherCharacter is IDealDamage)
+        int playerLayer = LayerMask.NameToLayer("CollisionDetection");
+        int enemyLayer = LayerMask.NameToLayer("CollisionDetection");
+
+        if (character.gameObject.layer == playerLayer && otherCharacter.gameObject.layer == enemyLayer)
         {
-            IDealDamage attacker = character as IDealDamage;
-            IDealDamage target = otherCharacter as IDealDamage;
-
-            int attackerPower = attacker.GetPower();
-            int targetPower = target.GetPower();
-
-            if (attackerPower > targetPower)
+            if (!IsInCooldown())
             {
-                // El personaje con más poder ataca
-                attacker.DealDamage(target);
-                attacker.PowerUp(targetPower);
+                foreach (var observer in collisionObservers)
+                {
+                    observer.OnCollision(character, otherCharacter);
+                }
+                ResetCooldown();
+                Debug.Log("Collision detected between: " + character + " and " + otherCharacter);
             }
-            else
-            {
-                // El personaje con menos poder recibe daño
-                target.DealDamage(attacker);
-                target.PowerUp(attackerPower);
-            }
-
-            Debug.Log("Collision detected between: " + character + " and" + otherCharacter);            
-
         }
     }
     public void PauseGame()
     {
         IsGamePaused = true;
+    }
+
+    private bool IsInCooldown()
+    {
+        return cooldownTimer < cooldownDuration;
     }
 
     // Start is called before the first frame update
@@ -98,6 +99,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        cooldownTimer += Time.deltaTime;
     }
 }
