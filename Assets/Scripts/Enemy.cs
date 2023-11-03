@@ -8,7 +8,6 @@ public class Enemy : Character, IObserver
     private LevelManager levelManager;
     private GameManager gameManager;
     public PowerDisplay powerDisplay;
-    private bool hasCollided = false;
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
     public Enemy(int power) : base(1)
@@ -18,8 +17,7 @@ public class Enemy : Character, IObserver
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!hasCollided)
-        {
+
             Character otherCharacter = collision.gameObject.GetComponent<Character>();
 
             if (otherCharacter != null)
@@ -28,9 +26,8 @@ public class Enemy : Character, IObserver
                 {
                     observer.OnCollision(this, otherCharacter);
                 }
-                hasCollided = true;
             }
-        }
+
     }
     public void OnCollision(Character character, Character otherCharacter)
     {
