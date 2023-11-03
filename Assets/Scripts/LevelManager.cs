@@ -42,23 +42,18 @@ public class LevelManager : MonoBehaviour
         Debug.Log("2");
     }
 
+    public void GameOver()
+    {
+        actualLevel = 0;
+        SceneManager.LoadScene("GameOver");
+        actualLevel = 0;
+    }
     public void LoadLevel(int level)
     {
-        activeEnemies.Clear();
-        if (player != null && player.lives <= 0)
-        {
-            SceneManager.LoadScene("GameOver");
-        }
-        else
-        {
+            activeEnemies.Clear();
             SceneManager.LoadScene("Level" + level);
-        }
-        Debug.Log("3");
-    }
-    public void RestartLevel()
-    {
-        LoadLevel(actualLevel);
-        Debug.Log("4");
+            Debug.Log("3"); 
+
     }
     public void AddActiveEnemy(Enemy enemy)
     {
@@ -82,6 +77,8 @@ public class LevelManager : MonoBehaviour
         {
             // Si no hay enemigos activos, avanzar al siguiente nivel
             NextLevel();
+            Debug.Log("NextLevel");
+
         }
         Debug.Log("6");       
     }
@@ -95,6 +92,10 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (player != null && player.lives <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+            actualLevel = 0;
+        }
     }
 }

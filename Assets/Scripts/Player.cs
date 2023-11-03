@@ -9,6 +9,7 @@ public class Player : Character, IObserver
     public static Player Instance { get; private set; }
     public PowerDisplay powerDisplay;
     public LivesDisplay livesDisplay;
+    public LevelManager levelManager;
     private bool collisionHandled = false;
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
@@ -100,6 +101,7 @@ public class Player : Character, IObserver
         {
             Destroy(gameObject);
             Debug.Log("player is dead");
+            levelManager.actualLevel = 0;
             SceneManager.LoadScene(3);
         }
     }
@@ -119,6 +121,7 @@ public class Player : Character, IObserver
     void Start()
     {
         gameManager = GameManager.Instance;
+        levelManager = LevelManager.Instance;
         gameManager.SubscribeCollisionObserver(this);
         lives = 3;
         power = 0;
