@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public int actualLevel = 0;
+    public Player player;
     public List<Enemy> activeEnemies = new List<Enemy>();
     public static LevelManager Instance { get; private set; }
 
@@ -43,8 +44,15 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevel(int level)
     {
-        SceneManager.LoadScene("Level" + level);
         activeEnemies.Clear();
+        if (player != null && player.lives <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+        else
+        {
+            SceneManager.LoadScene("Level" + level);
+        }
         Debug.Log("3");
     }
     public void RestartLevel()

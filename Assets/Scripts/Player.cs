@@ -100,7 +100,7 @@ public class Player : Character, IObserver
         {
             Destroy(gameObject);
             Debug.Log("player is dead");
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene(3);
         }
     }
     public void PowerUp(int powerQuantity)
