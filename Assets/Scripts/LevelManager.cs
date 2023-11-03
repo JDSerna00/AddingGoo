@@ -48,9 +48,9 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevel(int level)
     {
-            activeEnemies.Clear();
-            SceneManager.LoadScene("Level" + level);
-            Debug.Log("3"); 
+        activeEnemies.Clear();
+        SceneManager.LoadScene("Level" + level);
+        Debug.Log("3"); 
     }
     public void AddActiveEnemy(Enemy enemy)
     {
@@ -77,6 +77,7 @@ public class LevelManager : MonoBehaviour
             Debug.Log("NextLevel");
 
         }
+        activeEnemies.RemoveAll(item => item == null);
         Debug.Log("6");       
     }
 

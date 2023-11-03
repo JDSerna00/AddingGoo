@@ -52,6 +52,7 @@ public class Enemy : Character, IObserver
                     if (lives <= 0)
                     {
                         Destroy(gameObject);
+                        levelManager.RemoveActiveEnemy(this);
                     }
                 }
                 ResetCooldown();
@@ -76,7 +77,6 @@ public class Enemy : Character, IObserver
     private void OnDestroy()
     {
         gameManager.UnsubscribeCollisionObserver(this); // Desuscribir al Observer cuando se destruye
-        levelManager.RemoveActiveEnemy(this);
     }
     private void UpdatePowerDisplay()
     {
