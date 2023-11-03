@@ -123,8 +123,8 @@ public class Player : Character, IObserver
         {
             Destroy(gameObject);
             Debug.Log("player is dead");
-            levelManager.actualLevel = 0;
-            SceneManager.LoadScene(3);
+            levelManager.actualLevel = 1;
+            SceneManager.LoadScene("GameOver");
         }
     }
     public void PowerUp(int powerQuantity)

@@ -50,10 +50,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("GameOver");
     }
     public void LoadLevel(int level)
-    {
-        if(level == 4){
-            SceneManager.LoadScene("GameWon");
-        }
+    {         
         Time.timeScale = 1;
         activeEnemies.Clear();
         SceneManager.LoadScene("Level" + level);
