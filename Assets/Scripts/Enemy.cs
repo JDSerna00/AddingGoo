@@ -7,6 +7,7 @@ public class Enemy : Character, IObserver
 {
     private LevelManager levelManager;
     private GameManager gameManager;
+    public PowerDisplay powerDisplay;
     private bool hasCollided = false;
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
@@ -69,6 +70,7 @@ public class Enemy : Character, IObserver
 
     public void PowerUp(int powerQuantity)
     {
+        UpdatePowerDisplay();
         power += powerQuantity;
     }
     private void OnDestroy()
@@ -76,11 +78,16 @@ public class Enemy : Character, IObserver
         gameManager.UnsubscribeCollisionObserver(this); // Desuscribir al Observer cuando se destruye
         levelManager.RemoveActiveEnemy(this);
     }
+    private void UpdatePowerDisplay()
+    {
+        powerDisplay.UpdatePower(power);
+    }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        UpdatePowerDisplay();
         lives = 1;
         levelManager = LevelManager.Instance;
         gameManager = GameManager.Instance;

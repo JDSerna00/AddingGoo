@@ -8,8 +8,6 @@ public class Movement : MonoBehaviour
     public float jumpForce = 10f;
     public float climbSpeed = 5f;
     public float wallSlideSpeed = 1f;
-    public float wallJumpForceX = 5f;
-    public float wallJumpForceY = 5f;
     public Transform groundCheck;
     public Transform wallCheck;
     public float groundCheckRadius = 0.2f;
@@ -36,11 +34,6 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         }
 
-        if (isWallSliding && Input.GetButtonDown("Jump"))
-        {
-            WallJump();
-        }
-
         float moveInput = Input.GetAxis("Horizontal");
         if (moveInput > 0 && !isFacingRight)
         {
@@ -53,11 +46,7 @@ public class Movement : MonoBehaviour
 
         if (isWallSliding)
         {
-            if (Input.GetButtonDown("Jump"))
-            {
-                WallJump();
-            }
-            else if (Input.GetAxis("Vertical") != 0)
+            if (Input.GetAxis("Vertical") != 0)
             {
                 ClimbWall();
             }
@@ -72,11 +61,6 @@ public class Movement : MonoBehaviour
     {
         float moveInput = Input.GetAxis("Horizontal");
         rb.velocity = new Vector2(moveInput * speed, rb.velocity.y);
-    }
-
-    private void WallJump()
-    {
-        rb.AddForce(new Vector2(-transform.right.x * wallJumpForceX, wallJumpForceY));
     }
 
     private void ClimbWall()

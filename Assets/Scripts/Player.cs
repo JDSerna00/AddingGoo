@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class Player : Character, IObserver
 {
     public static Player Instance { get; private set; }
+    public PowerDisplay powerDisplay;
     private bool collisionHandled = false;
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
@@ -44,6 +45,10 @@ public class Player : Character, IObserver
             }
         }
     }
+    private void UpdatePowerDisplay()
+    {
+        powerDisplay.UpdatePower(power);
+    }
     public void OnCollision(Character character, Character otherCharacter)
     {
         if (!IsInCooldown())
@@ -54,12 +59,10 @@ public class Player : Character, IObserver
 
                 if (enemyPower < GetPower())
                 {
-                    // Incrementa el poder del jugador en la cantidad de poder del enemigo.
                     PowerUp(enemyPower);
                 }
                 else
                 {
-                    // El jugador recibe daño.
                     TakeDamage();
                 }
             }
@@ -77,7 +80,7 @@ public class Player : Character, IObserver
     }
     private void OnDestroy()
     {
-        gameManager.UnsubscribeCollisionObserver(this); // Desuscribir al Observer cuando se destruye
+        gameManager.UnsubscribeCollisionObserver(this);
     }
 
     public new void TakeDamage()
@@ -96,6 +99,7 @@ public class Player : Character, IObserver
     public void PowerUp(int powerQuantity)
     {
         power += powerQuantity;
+        UpdatePowerDisplay();
     }
 
     public void RestartPlayer()
@@ -111,6 +115,7 @@ public class Player : Character, IObserver
         gameManager.SubscribeCollisionObserver(this);
         lives = 3;
         power = 0;
+        UpdatePowerDisplay();
     }
 
     // Update is called once per frame
