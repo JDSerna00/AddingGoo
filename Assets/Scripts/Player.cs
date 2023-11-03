@@ -36,7 +36,7 @@ public class Player : Character, IObserver
         }
     }
 
-    public Player(int power) : base(1)
+    public Player(int power) : base(3)
     {
         this.power = power;
     }

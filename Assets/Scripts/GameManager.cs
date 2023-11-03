@@ -37,24 +37,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
-    {
-        SceneManager.LoadScene("GameOver");
-    }
-
-
     // Start is called before the first frame update
     void Start()
     {
         levelManager = LevelManager.Instance;
         Player goo = Player.Instance;
 
-        // Llamar al LevelStart una vez
-        if (levelManager != null)
-        {
-            levelManager.LevelStart();
-            Debug.Log("8");
-        }
         goo.RestartPlayer();
         Debug.Log("Goo has: " + goo.lives + " lives");
         Debug.Log("Goo has: " + goo.power+ " power");
@@ -63,5 +51,6 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
 }
