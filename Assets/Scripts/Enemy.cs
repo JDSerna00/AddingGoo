@@ -69,9 +69,9 @@ public class Enemy : Character, IObserver
     }
 
     public void PowerUp(int powerQuantity)
-    {
-        UpdatePowerDisplay();
+    {        
         power += powerQuantity;
+        UpdatePowerDisplay();
     }
     private void OnDestroy()
     {
