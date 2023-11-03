@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public int actualLevel = 0;
-    public Player player;
     public List<Enemy> activeEnemies = new List<Enemy>();
     public static LevelManager Instance { get; private set; }
 
@@ -46,14 +45,12 @@ public class LevelManager : MonoBehaviour
     {
         actualLevel = 0;
         SceneManager.LoadScene("GameOver");
-        actualLevel = 0;
     }
     public void LoadLevel(int level)
     {
             activeEnemies.Clear();
             SceneManager.LoadScene("Level" + level);
             Debug.Log("3"); 
-
     }
     public void AddActiveEnemy(Enemy enemy)
     {
@@ -86,16 +83,12 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player != null && player.lives <= 0)
-        {
-            SceneManager.LoadScene("GameOver");
-            actualLevel = 0;
-        }
+
     }
 }
