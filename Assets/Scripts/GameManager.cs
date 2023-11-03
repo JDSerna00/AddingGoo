@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     private LevelManager levelManager;
     public List<IObserver> collisionObservers = new List<IObserver>();
 
-    // Restablece el enfriamiento
     public void SubscribeCollisionObserver(IObserver observer)
     {
         collisionObservers.Add(observer);
