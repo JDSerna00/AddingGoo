@@ -13,9 +13,15 @@ public class Player : Character, IObserver
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
     private GameManager gameManager;
+    private GameObject live1;
+    private GameObject live2;
+    private GameObject live3;
 
     private void Awake()
     {
+        live1 = GameObject.Find("Live1");
+        live2 = GameObject.Find("Live2");
+        live3 = GameObject.Find("Live3");
         // Asegurarse de que solo haya una instancia del jugador.
         if (Instance == null)
         {
@@ -96,6 +102,22 @@ public class Player : Character, IObserver
             UpdateLivesDisplay();
         }
 
+        if (lives ==2)
+        {
+
+            Destroy(live3);
+            UpdateLivesDisplay();
+
+        }
+
+        if (lives == 1)
+        {
+
+            Destroy(live2);
+            UpdateLivesDisplay();
+
+        }
+
         if (lives <= 0)
         {
             Destroy(gameObject);
@@ -124,6 +146,7 @@ public class Player : Character, IObserver
         power = 0;
         UpdatePowerDisplay();
         UpdateLivesDisplay();
+
     }
 
     // Update is called once per frame
