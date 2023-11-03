@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public int actualLevel = 0;
+    public int actualLevel = 1;
+
     public List<Enemy> activeEnemies = new List<Enemy>();
     public static LevelManager Instance { get; private set; }
 
@@ -29,6 +30,7 @@ public class LevelManager : MonoBehaviour
     }    
     public void LevelStart()
     {
+        Time.timeScale = 1;
         LoadLevel(actualLevel);
         Debug.Log("1");
     }
@@ -36,6 +38,7 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
+        Time.timeScale = 1;
         actualLevel++; 
         LoadLevel(actualLevel);
         Debug.Log("2");
@@ -43,11 +46,15 @@ public class LevelManager : MonoBehaviour
 
     public void GameOver()
     {
-        actualLevel = 0;
+        actualLevel = 1;
         SceneManager.LoadScene("GameOver");
     }
     public void LoadLevel(int level)
     {
+        if(level == 4){
+            SceneManager.LoadScene("GameWon");
+        }
+        Time.timeScale = 1;
         activeEnemies.Clear();
         SceneManager.LoadScene("Level" + level);
         Debug.Log("3"); 
