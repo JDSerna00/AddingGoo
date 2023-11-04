@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Level3_Real.unity
     guid: 07b8b4967d8243145b102812e6ab0c86
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestLevel.unity
     guid: 73fe43cb33b0cea418d77f11e2f82447
   - enabled: 1
