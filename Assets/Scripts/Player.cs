@@ -8,7 +8,6 @@ public class Player : Character, IObserver
 {
     public static Player Instance { get; private set; }
     public PowerDisplay powerDisplay;
-    public LivesDisplay livesDisplay;
     public LevelManager levelManager;
     private bool collisionHandled = false;
     private float cooldownTimer = 0.0f;
@@ -57,10 +56,6 @@ public class Player : Character, IObserver
     {
         powerDisplay.UpdatePower(power);
     }
-    private void UpdateLivesDisplay()
-    {
-        livesDisplay.UpdateLives(lives);
-    }
     public void OnCollision(Character character, Character otherCharacter)
     {
         if (!IsInCooldown())
@@ -100,14 +95,12 @@ public class Player : Character, IObserver
         if (lives > 0)
         {
             lives --;
-            UpdateLivesDisplay();
         }
 
         if (lives ==2)
         {
 
             Destroy(live3);
-            UpdateLivesDisplay();
 
         }
 
@@ -115,7 +108,6 @@ public class Player : Character, IObserver
         {
 
             Destroy(live2);
-            UpdateLivesDisplay();
 
         }
 
@@ -148,7 +140,6 @@ public class Player : Character, IObserver
         lives = 3;
         power = 0;
         UpdatePowerDisplay();
-        UpdateLivesDisplay();
 
     }
 
