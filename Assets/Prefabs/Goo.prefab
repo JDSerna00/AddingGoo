@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5086327490171301705}
   - component: {fileID: 5109279774257530947}
   - component: {fileID: 452810267066998702}
+  - component: {fileID: 1867155936403973432}
   m_Layer: 6
   m_Name: Goo
   m_TagString: Goo
@@ -148,13 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f61388f0a66ac6746b1adc5d1b09b6d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   jumpForce: 10
-  climbSpeed: 10
-  wallSlideSpeed: 1
+  climbSpeed: 3
+  wallSlideSpeed: 0.5
   groundCheck: {fileID: 884218543264390877}
   wallCheck: {fileID: 959728971594658731}
-  groundCheckRadius: 0.1
+  groundCheckRadius: 1
   wallCheckDistance: 0.2
   whatIsGround:
     serializedVersion: 2
@@ -166,7 +167,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316434659448870891}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -204,6 +205,41 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.301445, y: 1.714501}
   m_EdgeRadius: 0
+--- !u!70 &1867155936403973432
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 316434659448870891}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.012827409, y: -0.9643595}
+  m_Size: {x: 0.45326525, y: 0.92114824}
+  m_Direction: 0
 --- !u!1 &1713000046098282908
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,8 +518,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1963.5961, y: 656.18567}
-  m_SizeDelta: {x: 1096, y: 510}
+  m_AnchoredPosition: {x: 1816.89, y: 585.93}
+  m_SizeDelta: {x: 2.3637, y: 0.801}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9067459539941165489
 Canvas:
@@ -582,8 +618,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -553.9103, y: -266.50998}
-  m_SizeDelta: {x: 17.3771, y: 8.835}
+  m_AnchoredPosition: {x: -0.000000089407, y: 0.00000023842}
+  m_SizeDelta: {x: 1.2787, y: 0.6044}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7232468778843036922
 CanvasRenderer:
@@ -647,7 +683,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -708,7 +744,7 @@ Transform:
   m_GameObject: {fileID: 6324688909833850528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3018, y: -896, z: -0.15042475}
+  m_LocalPosition: {x: -3911, y: -1334, z: -0.15042475}
   m_LocalScale: {x: 2.152599, y: 2.2789376, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
