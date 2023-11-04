@@ -19,9 +19,7 @@ public class AudioManager : MonoBehaviour
 
     private void Enabled()
     {
-
         SceneManager.sceneLoaded += ChangeSong;
-
     }
 
     private void Disabled()

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Track : MonoBehaviour
 {
-    public string name;
     public float volume;
     public float pitch;
     // Start is called before the first frame update

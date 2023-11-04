@@ -9,7 +9,6 @@ public class Player : Character, IObserver
     public static Player Instance { get; private set; }
     public PowerDisplay powerDisplay;
     public LevelManager levelManager;
-    private bool collisionHandled = false;
     private float cooldownTimer = 0.0f;
     private float cooldownDuration = 2.0f;
     private GameManager gameManager;
